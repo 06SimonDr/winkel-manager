@@ -1,0 +1,12 @@
+<%- include("partials/header", { bot, user, path, title: "Ip geregistreerd!" }) %>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+
+    <div class="card" style="max-width: 18rem; margin: 2rem; min-width: 10em;">
+      <div class="card-body">
+        <h5 class="card-title">Uw ip-adress is al geregistreerd in <%= guild.name %>, onder de naam <%= guild.members.cache.get(settings.userId).name %></h5>
+      </div>
+    </div>
+</div>
+
+<%- include("partials/footer") %>

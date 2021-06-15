@@ -1,0 +1,31 @@
+<%- include("partials/header", { bot, user, path, title: "Ip geregistreerd!" }) %>
+<script src="https://www.google.com/recaptcha/api.js?render=6LfL5SobAAAAAEdAtuihrW6w8UR-ONx8rO0-8bqC"></script>
+<script>
+  function onClick(e) {
+    e.preventDefault();
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LfL5SobAAAAAEdAtuihrW6w8UR-ONx8rO0-8bqC', {action: 'submit'}).then(function(token) {
+          // Add your logic to submit to your backend server here.
+      });
+    });
+  }
+</script>
+<script>
+  function onSubmit(token) {
+    document.getElementById("demo-form").submit();
+  }
+</script>
+<div style="display: flex; flex-wrap: wrap; justify-content: center;">
+
+    <div class="card" style="max-width: 18rem; margin: 2rem; min-width: 10em;">
+      <div class="card-body">
+        <h5 class="card-title">Uw ip-adress is succesvol geregistreerd in <%= settings.ip %>, onder de naam <%= user.username %></h5>µ
+      </div>
+      <button class="g-recaptcha" 
+        data-sitekey="6LfL5SobAAAAAEdAtuihrW6w8UR-ONx8rO0-8bqC" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>
+    </div>
+</div>
+
+<%- include("partials/footer") %>
