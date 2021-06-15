@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 const Discord = require("discord.js");
 const GuildSettings = require("../models/settings");
 const IpCheck = require("../models/ipcheck");
-const CustomCommands  = require('../models/custom-commands')
+const winkelSchema  = require('../models/winkels')
 
 // We instantiate express app and the session store.
 const app = express();
@@ -252,14 +252,14 @@ module.exports = async (client) => {
     // We retrive the settings stored for this guild.
     var storedSettings = await CustomCommands.find({ serverId: guild.id });
     if (!storedSettings) {
-      renderTemplate(res, req, "commands.ejs", { guild, alert: null });
+      renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
     } else {
-    renderTemplate(res, req, "commands.ejs", { guild, settings: storedSettings, alert: null });
+    renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: null });
     }
   });
 
     // Settings endpoint.
-    app.post("/dashboard/:guildID/commands", checkAuth, async (req, res) => {
+    app.post("/dashboard/:guildID/winkels", checkAuth, async (req, res) => {
         // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
         const guild = client.guilds.cache.get(req.params.guildID);
         if (!guild) return res.redirect("/dashboard");
@@ -269,28 +269,22 @@ module.exports = async (client) => {
 
         // console.log(req.body)
         if (req.body.task === "EDIT" || req.body.task === "NEW") {
-          if (req.body.task === "EDIT") var newSettings = await CustomCommands.findById(req.body.commandId);
-          if (req.body.task === "NEW") var newSettings = await new CustomCommands({ serverId: guild.id });
-          for (var i=1; i<(Object.keys(req.body).length)-6; i++) {
-            if(i===1) newSettings.action1 = req.body.action1; newSettings.value1 = req.body.value1;
-            if(i===2) newSettings.action2 = req.body.action2; newSettings.value2 = req.body.value2;
-            if(i===3) newSettings.action3 = req.body.action3; newSettings.value3 = req.body.value3;
-            if(i===4) newSettings.action4 = req.body.action4; newSettings.value4 = req.body.value4;
-          }
+          if (req.body.task === "EDIT") var newSettings = await winkelSchema.findById(req.body.storeId);
+          if (req.body.task === "NEW") var newSettings = await new winkelSchema({ serverId: guild.id });
           if (req.body.name) newSettings.name = req.body.name;
           if (req.body.description) newSettings.description = req.body.description;
-          if (req.body.action) newSettings.action = req.body.action;
-          if (req.body.value) newSettings.value = req.body.value;
+          if (req.body.stad) newSettings.stad = req.body.stad;
+          if (req.body.location) newSettings.location = req.body.location;
           await newSettings.save().catch((err) => {console.log(err)});
         }
 
-        if (req.body.task === "DELETE") var newSettings = await CustomCommands.deleteOne({ _id: req.body.commandId });
+        if (req.body.task === "DELETE") var newSettings = await winkelSchema.deleteOne({ _id: req.body.storeId });
 
-        var storedSettings = await CustomCommands.find({ serverId: guild.id });
+        var storedSettings = await winkelSchema.find({ serverId: guild.id });
     if (!storedSettings) {
-      renderTemplate(res, req, "commands.ejs", { guild, alert: null });
+      renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
     } else {
-    renderTemplate(res, req, "commands.ejs", { guild, settings: storedSettings, alert: "Your settings have been saved." });
+    renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: "Your settings have been saved." });
     }
     });
     const testport = process.env.PORT || 80

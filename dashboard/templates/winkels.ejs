@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    <table class="table" id="commandList">
+    <table class="table" id="storeList">
         <thead>
           <tr>
             <th>Winkel</th>
@@ -58,9 +58,9 @@
         <tr>
             <td><%= store.name %></td>
             <td><%= store.description %></td>
-            <td><button type="button" class="btn btn-warning text-white" data-toggle="modal" data-target="#editStore-<%- store.name %>" data-whatever="@mdo"><i class='fas fa-pencil-alt'></i></button><button type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteCommand-<%- command.name %>" data-whatever="@mdo"><i class='fas fa-trash-alt'></i></button></td>
+            <td><button type="button" class="btn btn-warning text-white" data-toggle="modal" data-target="#editStore-<%- store.name %>" data-whatever="@mdo"><i class='fas fa-pencil-alt'></i></button><button type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteStore-<%- store.name %>" data-whatever="@mdo"><i class='fas fa-trash-alt'></i></button></td>
         </tr>
-          <div class="modal fade" id="editStore-<%- command.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="editStore-<%- store.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -102,11 +102,11 @@
             </div>
             </div>
           </div>
-          <div class="modal fade" id="deleteCommand-<%- command.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="deleteStore-<%- store.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete <%= store.name %> command</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Verwijder <%= store.name %></h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -114,11 +114,11 @@
                 <div class="modal-body">
                     <form method="POST">
                         <input type="hidden" name="task" value="DELETE">
-                        <input type="text" class="form-control" name="commandId" value="<%= command._id %>" hidden>
-                        <p style="font-style: italic;" class="disabled">Weet u zeker dat u het command <%= store.name %> wilt verwijderen?</p>
+                        <input type="text" class="form-control" name="storeId" value="<%= store._id %>" hidden>
+                        <p style="font-style: italic;" class="disabled">Weet u zeker dat u <%= store.name %> wilt verwijderen?</p>
                         <br>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Verwijder</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluit</button>
                     </form>
                 </div>
               </div>
