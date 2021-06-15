@@ -250,7 +250,7 @@ module.exports = async (client) => {
     if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
     // We retrive the settings stored for this guild.
-    var storedSettings = await CustomCommands.find({ serverId: guild.id });
+    var storedSettings = await winkelSchema.find({ serverId: guild.id });
     if (!storedSettings) {
       renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
     } else {
