@@ -237,7 +237,7 @@ module.exports = async (client) => {
     });
 
     // Settings endpoint.
-  app.get("/dashboard/:guildID/commands", checkAuth, async (req, res) => {
+  app.get("/dashboard/:guildID/winkels", checkAuth, async (req, res) => {
     // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
     var guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.redirect("/dashboard");
