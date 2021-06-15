@@ -72,7 +72,7 @@
                 <div class="modal-body">
                   <form method="POST" name="editStore">
                       <input type="hidden" class="form-control" name="storeId" value="<%= store._id %>">
-                      <input type="hidden" name="task" value="NEW">
+                      <input type="hidden" name="task" value="EDIT">
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Naam:</p>
                       <p style="font-style: italic;" class="disabled">Geef de winkel een naam.</p>
                       <input type="text" class="form-control" name="name" value="<%= store.name %>" placeholder="Naam" required maxlength="20">
