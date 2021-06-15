@@ -1,97 +1,41 @@
 <%- include("partials/header", { bot, user, path, title: `Settings | ${guild.name}` }) %>
 
-<script type='text/javascript'>
-  var getal = 1
-  function addFields(){
-    if (getal === 5) return alert("Je mag maar 5 acties gebruiken!");
-      var container = document.getElementById("newCommandModal");
-
-          var title = document.createElement("H5")
-          title.style = "margin-bottom: 0.5rem; margin-top: 10px;"
-          title.innerHTML = "Actie:";
-          container.appendChild(title);
-
-          var waarde = document.createElement("p")
-          waarde.style = "font-style: italic"
-          waarde.innerHTML = "Geef de actie van het command.";
-          container.appendChild(waarde);
-
-          var selection = document.createElement("Select")
-          selection.name = `action${getal}`;
-          selection.className = "form-control";
-          selection.required = true;
-          container.appendChild(selection);
-
-          var option1 = document.createElement("option")
-          option1.value = ""
-          option1.innerHTML = "Selecteer een actie"
-          option1.disabled = true
-          option1.selected = true
-          option1.hidden = true
-          selection.appendChild(option1)
-
-          var option2 = document.createElement("option")
-          option2.innerHTML = "SEND"
-          selection.appendChild(option2)
-
-          var title = document.createElement("H5")
-          title.style = "margin-bottom: 0.5rem; margin-top: 10px;"
-          title.innerHTML = "Waarde:";   
-          container.appendChild(title);
-
-          var waarde = document.createElement("p")
-          waarde.style = "font-style: italic"
-          waarde.innerHTML = "Geef de waarde van het command.";
-          container.appendChild(waarde);
-
-          var input = document.createElement("input");
-          input.type = "text";
-          input.className = "form-control";
-          input.name = `value${getal}`;
-          input.placeholder = "Waarde";
-          input.required = true;
-          container.appendChild(input);
-          container.appendChild(document.createElement("br"));
-          getal++
-  }
-</script>
-
 <div class="container-sm center" style="margin-top: 30px;">
-    <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#addCommand" data-whatever="@mdo">Add command</button>
-    <div class="modal fade" id="addCommand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newStore" data-whatever="@mdo">Add winkel</button>
+    <div class="modal fade" id="newStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add command</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Winkel toevoegen</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-                <form method="POST" name="newCommand">
+                <form method="POST" name="newStore">
                     <input type="hidden" name="task" value="NEW">
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Naam:</p>
-                    <p style="font-style: italic;" class="disabled">Geef de naam van het command.</p>
+                    <p style="font-style: italic;" class="disabled">Geef de winkel een naam.</p>
                     <input type="text" class="form-control" name="name" value="<%= settings.name %>" placeholder="Naam" required maxlength="20">
                     <br>
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
-                    <p style="font-style: italic;" class="disabled">Geef de beschrijving van het command.</p>
-                    <input type="text" class="form-control" name="description" value="<%= settings.description %>" placeholder="Beschrijving" required maxlength="250">
+                    <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
+                    <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Waarde" required maxlength="150">
                     <br>
-                    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Actie:</p>
-                    <p style="font-style: italic;" class="disabled">Kies de actie van het command.</p>
-                    <select name='action' class="form-control" required>
-                        <option value="" disabled selected hidden>Selecteer een actie</option>
-                        <option>SEND</option>
+                    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
+                    <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
+                    <select name='stad' class="form-control" required>
+                      <option value="" disabled selected hidden>Selecteer een stad</option>
+                      <option>Hollandia</option>
+                      <option>Bruxia</option>
+                      <option>The Bai</option>
+                      <option>Minetopia</option>
+                      <option>Pretpark</option>
                     </select>
                     <br>
-                    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Waarde:</p>
-                    <p style="font-style: italic;" class="disabled">Geef de waarde van het command.</p>
-                    <input type="text" class="form-control" name="value" value="<%= settings.value %>" placeholder="Waarde" required maxlength="150">
-                    <br>
-                    <div id="newCommandModal"></div>
-                    <br>
-                    <button type="button" onclick="addFields()" id="filldetails" class="btn btn-success">Click me</button>
+                    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Locatie</p>
+                    <p style="font-style: italic;" class="disabled">Wat zijn de coördinaten van de winkel?</p>
+                    <input type="text" class="form-control" name="value" value="<%= settings.location %>" placeholder="Locatie" required maxlength="20">
                     <br>
                     <button type="submit" class="btn btn-success">Save settings</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -103,80 +47,66 @@
     <table class="table" id="commandList">
         <thead>
           <tr>
-            <th>Naam</th>
+            <th>Winkel</th>
             <th>Beschrijving</th>
             <th>Opties</th>
           </tr>
         </thead>
         <tbody>
-    <% settings.forEach(command => { %>
+    <% settings.forEach(store => { %>
   
         <tr>
-            <td><%= command.name %></td>
-            <td><%= command.description %></td>
-            <td><button type="button" class="btn btn-warning text-white" data-toggle="modal" data-target="#editCommand-<%- command.name %>" data-whatever="@mdo"><i class='fas fa-pencil-alt'></i></button><button type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteCommand-<%- command.name %>" data-whatever="@mdo"><i class='fas fa-trash-alt'></i></button></td>
+            <td><%= store.name %></td>
+            <td><%= store.description %></td>
+            <td><button type="button" class="btn btn-warning text-white" data-toggle="modal" data-target="#editStore-<%- store.name %>" data-whatever="@mdo"><i class='fas fa-pencil-alt'></i></button><button type="button" class="btn btn-danger text-white" data-toggle="modal" data-target="#deleteCommand-<%- command.name %>" data-whatever="@mdo"><i class='fas fa-trash-alt'></i></button></td>
         </tr>
-          <div class="modal fade" id="editCommand-<%- command.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="editStore-<%- command.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Edit <%= command.name %> command</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Bewerk <%= store.name %></h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST">
-                        <input type="hidden" name="task" value="EDIT">
-                        <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Command ID:</p>
-                        <p style="font-style: italic;" class="disabled">Alleen lezen</p>
-                        <input type="text" class="form-control" name="commandId" value="<%= command._id %>" readonly>
-                        <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Naam:</p>
-                        <p style="font-style: italic;" class="disabled">Verander de naam van het command.</p>
-                        <input type="text" class="form-control" name="name" value="<%= command.name %>" placeholder="Naam" required maxlength="20">
-                        <br>
-                        <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
-                        <p style="font-style: italic;" class="disabled">Verander de beschrijving van het command.</p>
-                        <input type="text" class="form-control" name="description" value="<%= command.description %>" placeholder="Beschrijving" required maxlength="250">
-                        <br>
-                        <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Actie:</p>
-                    <p style="font-style: italic;" class="disabled">Kies de actie van het command.</p>
-                    <select name='action' class="form-control" required>
-                        <option disabled selected hidden><%= command.action %></option>
-                        <option>SEND</option>
-                    </select>
-                    <br>
-                    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Waarde:</p>
-                    <p style="font-style: italic;" class="disabled">Geef de waarde van het command.</p>
-                    <input type="text" class="form-control" name="value" value="<%= command.value %>" placeholder="Waarde" required maxlength="150">
-                    <br>
-                    <% var testGetal = 0
-                    Object.keys(command).forEach(setting => {
-                      console.log(setting);
-                      console.log(Object.keys(command))
-                        if(setting.includes("action") && setting !== "action") { %>
-                          <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Actie:</p>
-                          <p style="font-style: italic;" class="disabled">Kies de actie van het command.</p>
-                          <select name='action' class="form-control" required>
-                            <option disabled selected hidden><%= Object.values(command)[testGetal] %></option>
-                            <option>SEND</option>
-                          </select>
-                        <% }
-                        testGetal++
-                        }) %>
-                    <br>
-                        <button type="submit" class="btn btn-success">Save settings</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </form>
-                </div>
+                  <form method="POST" name="newStore">
+                      <input type="hidden" name="task" value="NEW">
+                      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Naam:</p>
+                      <p style="font-style: italic;" class="disabled">Geef de winkel een naam.</p>
+                      <input type="text" class="form-control" name="name" value="<%= settings.name %>" placeholder="Naam" required maxlength="20">
+                      <br>
+                      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
+                      <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
+                      <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Waarde" required maxlength="150">
+                      <br>
+                      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
+                      <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
+                      <select name='stad' class="form-control" required>
+                        <option value="" disabled selected hidden><%= settings.stad %></option>
+                        <option>Hollandia</option>
+                        <option>Bruxia</option>
+                        <option>The Bai</option>
+                        <option>Minetopia</option>
+                        <option>Pretpark</option>
+                      </select>
+                      <br>
+                      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Locatie</p>
+                      <p style="font-style: italic;" class="disabled">Wat zijn de coördinaten van de winkel?</p>
+                      <input type="text" class="form-control" name="value" value="<%= settings.location %>" placeholder="Locatie" required maxlength="20">
+                      <br>
+                      <button type="submit" class="btn btn-success">Save settings</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </form>
               </div>
+            </div>
             </div>
           </div>
           <div class="modal fade" id="deleteCommand-<%- command.name %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete <%= command.name %> command</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Delete <%= store.name %> command</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -185,7 +115,7 @@
                     <form method="POST">
                         <input type="hidden" name="task" value="DELETE">
                         <input type="text" class="form-control" name="commandId" value="<%= command._id %>" hidden>
-                        <p style="font-style: italic;" class="disabled">Weet u zeker dat u het command <%= command.name %> wilt verwijderen?</p>
+                        <p style="font-style: italic;" class="disabled">Weet u zeker dat u het command <%= store.name %> wilt verwijderen?</p>
                         <br>
                         <button type="submit" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
