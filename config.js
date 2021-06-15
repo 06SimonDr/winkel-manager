@@ -3,9 +3,9 @@ module.exports = {
   "mongodbUrl": "mongodb+srv://discord-bot:Pidag1403@cluster0.1qynp.mongodb.net/antiRaid", // Mongodb connection url.
   "id": "637304257090945024", // https://discordapp.com/developers/applications/ID/information
   "clientSecret": "vrbm9ntJCRY-CaogP4Dr-kNDGeij_zu5", // https://discordapp.com/developers/applications/ID/information
-  "domain": "http://localhost",
-  "port": 8000,
-  "usingCustomDomain": false
+  "domain": "https://customcommandbot.herokuapp.com",
+  "port": 80,
+  "usingCustomDomain": true
 };
 
 /**
