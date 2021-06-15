@@ -20,7 +20,7 @@
                     <br>
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
                     <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
-                    <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Waarde" required maxlength="150">
+                    <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Beschrijving" required maxlength="50">
                     <br>
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
                     <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
@@ -70,20 +70,21 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form method="POST" name="newStore">
+                  <form method="POST" name="editStore">
+                      <input type="hidden" class="form-control" name="storeId" value="<%= store._id %>">
                       <input type="hidden" name="task" value="NEW">
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Naam:</p>
                       <p style="font-style: italic;" class="disabled">Geef de winkel een naam.</p>
-                      <input type="text" class="form-control" name="name" value="<%= settings.name %>" placeholder="Naam" required maxlength="20">
+                      <input type="text" class="form-control" name="name" value="<%= store.name %>" placeholder="Naam" required maxlength="20">
                       <br>
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
                       <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
-                      <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Waarde" required maxlength="150">
+                      <input type="text" class="form-control" name="value" value="<%= store.description %>" placeholder="Beschrijving" required maxlength="50">
                       <br>
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
                       <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
                       <select name='stad' class="form-control" required>
-                        <option value="" disabled selected hidden><%= settings.stad %></option>
+                        <option value="" disabled selected hidden><%= store.stad %></option>
                         <option>Hollandia</option>
                         <option>Bruxia</option>
                         <option>The Bai</option>
@@ -93,7 +94,7 @@
                       <br>
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Locatie</p>
                       <p style="font-style: italic;" class="disabled">Wat zijn de coördinaten van de winkel?</p>
-                      <input type="text" class="form-control" name="value" value="<%= settings.location %>" placeholder="Locatie" required maxlength="20">
+                      <input type="text" class="form-control" name="value" value="<%= store.location %>" placeholder="Locatie" required maxlength="20">
                       <br>
                       <button type="submit" class="btn btn-success">Save settings</button>
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
