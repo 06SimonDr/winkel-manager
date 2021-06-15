@@ -166,23 +166,29 @@ module.exports = async (client) => {
     renderTemplate(res, req, "index.ejs");
   });
 
-  // IP checker endpoint.
-  app.get("/ip-check/:guildID", checkAuth, async (req, res) => {
-    var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-    console.log(ip.slice(7))
-    const result = await IpCheck.findOne({ serverId: req.params.guildId, ip: ip })
-    var guild = req.params.guildId
-    if (result) renderTemplate(res, req, "denied.ejs", { guild, settings: result, alert: null });
-    else renderTemplate(res, req, "acces.ejs", { guild, settings: ip, alert: null });
-  });
-
   // Dashboard endpoint.
   app.get("/dashboard", checkAuth, (req, res) => {
     renderTemplate(res, req, "dashboard.ejs", { perms: Discord.Permissions });
   });
 
-  // Settings endpoint.
+  // Menu endpoint.
   app.get("/dashboard/:guildID", checkAuth, async (req, res) => {
+    // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
+    var guild = client.guilds.cache.get(req.params.guildID);
+    if (!guild) return res.redirect("/dashboard");
+    const member = guild.members.cache.get(req.user.id);
+    if(!member){
+      try{ await guild.members.fetch();
+        member = guild.members.cache.get(req.user.id);
+      } catch{ console.error("Couldn't fetch the members of " + guild.id); }}
+    if (!member) return res.redirect("/dashboard");
+    if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
+  
+    renderTemplate(res, req, "menu.ejs", { guild, alert: null });
+  });
+
+  // Settings endpoint.
+  app.get("/dashboard/:guildID/algemeen", checkAuth, async (req, res) => {
     // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
     var guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.redirect("/dashboard");
@@ -209,7 +215,7 @@ module.exports = async (client) => {
   });
 
     // Settings endpoint.
-    app.post("/dashboard/:guildID", checkAuth, async (req, res) => {
+    app.post("/dashboard/:guildID/algemeen", checkAuth, async (req, res) => {
         // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
         const guild = client.guilds.cache.get(req.params.guildID);
         if (!guild) return res.redirect("/dashboard");
