@@ -20,7 +20,7 @@
                     <br>
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
                     <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
-                    <input type="text" class="form-control" name="value" value="<%= settings.description %>" placeholder="Beschrijving" required maxlength="50">
+                    <input type="text" class="form-control" name="description" value="<%= settings.description %>" placeholder="Beschrijving" required maxlength="50">
                     <br>
                     <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
                     <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
@@ -79,12 +79,12 @@
                       <br>
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
                       <p style="font-style: italic;" class="disabled">Voeg een beschrijving toe.</p>
-                      <input type="text" class="form-control" name="value" value="<%= store.description %>" placeholder="Beschrijving" required maxlength="50">
+                      <input type="text" class="form-control" name="description" value="<%= store.description %>" placeholder="Beschrijving" required maxlength="50">
                       <br>
                       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Stad:</p>
                       <p style="font-style: italic;" class="disabled">In welke stad is de winkel gevestigd?</p>
                       <select name='stad' class="form-control" required>
-                        <option value="" disabled selected hidden><%= store.stad %></option>
+                        <option selected><%= store.stad %></option>
                         <option>Hollandia</option>
                         <option>Bruxia</option>
                         <option>The Bai</option>
