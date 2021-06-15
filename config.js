@@ -4,7 +4,7 @@ module.exports = {
   "id": "637304257090945024", // https://discordapp.com/developers/applications/ID/information
   "clientSecret": "vrbm9ntJCRY-CaogP4Dr-kNDGeij_zu5", // https://discordapp.com/developers/applications/ID/information
   "domain": "https://customcommandbot.herokuapp.com",
-  "port": "",
+  "port": 433,
   "usingCustomDomain": true
 };
 
