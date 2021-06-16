@@ -269,7 +269,15 @@ module.exports = async (client) => {
         if (!member) return res.redirect("/dashboard");
         if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
-        // console.log(req.body)
+        var newSettings2 = await embedSchema.findOne({ serverId: guild.id })
+        if(req.body.channel) newSettings2.channelId = guild.channels.cache.find(channel => channel.name === channel).id
+        if(req.body.title) newSettings2.title = req.body.title
+        if(req.body.description2) newSettings2.description = req.body.description2
+        if(req.body.color) newSettings2.color = req.body.color
+        if(req.body.image) newSettings2.image = req.body.image
+        if(req.body.footer) newSettings2.footer = req.body.footer
+        await newSettings2.save().catch((err) => {console.log(err)});
+
         if (req.body.task === "EDIT" || req.body.task === "NEW") {
           if (req.body.task === "EDIT") var newSettings = await winkelSchema.findById(req.body.storeId);
           if (req.body.task === "NEW") var newSettings = await new winkelSchema({ serverId: guild.id });

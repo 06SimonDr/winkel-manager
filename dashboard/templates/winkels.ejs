@@ -27,7 +27,7 @@
       <input type="text" class="form-control" name="footer" value="<%= settings.embedSettings.footer %>" placeholder="Footer" required>
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Embed channel:</p>
       <p style="font-style: italic;" class="disabled">Verstuur het embed bericht.</p>
-      <select name='ticketPanel' class="form-control">
+      <select name='channel' class="form-control">
         <option value="" disabled selected hidden> <% if (guild.channels.cache.get(settings.embedSettings.channelId)) { %> <%= guild.channels.cache.get(settings.embedSettings.channelId).name %> <% } else { %> Selecteer een channel <% } %> </option>
         <% guild.channels.cache.forEach(channel => { 
           if(channel.type !== 'text') return;
