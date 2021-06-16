@@ -13,5 +13,6 @@ module.exports = {
 		.setTitle('Test')
 		.addField("Title here, no hyperlinks allowed", "Main text here, so you can put a hyperlink here [like so.](https://example.com)");
 
+		message.channel.send(embed)
 	},
 };
