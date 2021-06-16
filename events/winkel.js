@@ -30,7 +30,7 @@ module.exports = {
                 for (const winkel of winkels) {
                     embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\nLocatie: ${winkel.location}`)
                 }
-                if (!message) {
+                if (!message || !result.messageId) {
                     channel.send(embed).then(async msg => {
                         result.messageId = msg.id
                         await result.save().catch((err) => {console.log(err)});
