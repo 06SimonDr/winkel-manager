@@ -11,8 +11,11 @@
     <hr>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Titel:</p>
-      <p style="font-style: italic;" class="disabled">Verander de embed titel.</p>
+      <p style="font-style: italic;" class="disabled">Verander de titel van het embed.</p>
       <input type="text" class="form-control" name="title" value="<%= settings.embedSettings.title %>" placeholder="Titel" required>
+      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Kleur:</p>
+      <p style="font-style: italic;" class="disabled">Verander het embed kleur.</p>
+      <input type="color" name="color" class="form-control" value="<%= settings.embedSettings.color %>" placeholder="Kleur" required>
       <br><button type="submit" class="btn btn-secondary text-white">Save Settings</button>
     </form>
   </div>
