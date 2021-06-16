@@ -256,9 +256,9 @@ module.exports = async (client) => {
     if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
     var embedSettings = await embedSchema.find({ serverId: guild.id })
+    if (!embedSettings) var embedSettings = await new embedSchema({ serverId: guild.id })
     var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
-    if (!embedSettings) renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
-    else renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: null });
+    renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: null });
   });
 
     // Settings endpoint.
@@ -295,9 +295,9 @@ module.exports = async (client) => {
         if (req.body.task === "DELETE") var newSettings = await winkelSchema.deleteOne({ _id: req.body.storeId });
 
         var embedSettings = await embedSchema.find({ serverId: guild.id })
+        if (!embedSettings) var embedSettings = await new embedSchema({ serverId: guild.id })
         var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
-        if (!embedSettings) renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings }, alert: "Jouw instellingen zijn opgeslagen!" });
-        else renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
+        renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
     });
     const testport = process.env.PORT || 80
   app.listen(testport, null, null, () => console.log(`Dashboard is up and running on port ${testport}.`));
