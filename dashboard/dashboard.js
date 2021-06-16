@@ -293,7 +293,7 @@ module.exports = async (client) => {
 
         if (req.body.task === "DELETE") var newSettings = await winkelSchema.deleteOne({ _id: req.body.storeId });
 
-        var embedSettings = await embedSchema.findOne({ serverId: guild.id })
+        var embedSettings = await embedSchema.find({ serverId: guild.id })
         var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
         renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
     });
