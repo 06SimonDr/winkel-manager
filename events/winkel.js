@@ -27,7 +27,12 @@ module.exports = {
                 embed.setTimestamp()
 
                 for (const winkel of winkels) {
-                    embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\n**Locatie:** ${winkel.location}`, true)
+                    if (winkel.status === 'OPEN') {
+                        embed.addField(`✅ - ${winkel.name} (${winkel.stad})`, `✅ - Geopend\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
+                    }
+                    else {
+                        embed.addField(`❌ - ${winkel.name} (${winkel.stad})`, `❌ - Gesloten\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
+                    }
                 }
                 if (!message || !result.messageId) {
                     channel.send(embed).then(async msg => {

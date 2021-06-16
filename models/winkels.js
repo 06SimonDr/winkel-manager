@@ -8,6 +8,7 @@ const winkelSchema = new Schema({
   description: { type: String },
   stad: { type: String },
   location: { type: String },
+  status: { type: String }
 });
 
 // We export it as a mongoose model.

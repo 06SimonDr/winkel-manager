@@ -284,7 +284,7 @@ module.exports = async (client) => {
         if (req.body.task === "EDIT" || req.body.task === "NEW") {
           if (req.body.task === "EDIT") var newSettings = await winkelSchema.findById(req.body.storeId);
           if (req.body.task === "NEW") var newSettings = await new winkelSchema({ serverId: guild.id });
-          if (req.body.name) newSettings.name = req.body.name;
+          if (req.body.name) newSettings.name = req.body.name.toLowerCase()
           if (req.body.description) newSettings.description = req.body.description;
           if (req.body.stad) newSettings.stad = req.body.stad;
           if (req.body.location) newSettings.location = req.body.location;
