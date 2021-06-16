@@ -273,7 +273,7 @@ module.exports = async (client) => {
         if(!newSettings2) {
           var newSettings2 = await new embedSchema({ serverId: guild.id });
         }
-        if(req.body.channel) newSettings2.channelId = channel
+        if(req.body.channel) newSettings2.channelId = req.body.channel
         if(req.body.title) newSettings2.title = req.body.title
         if(req.body.description2) newSettings2.description = req.body.description2
         if(req.body.color) newSettings2.color = req.body.color
