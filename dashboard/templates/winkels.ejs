@@ -13,10 +13,29 @@
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Titel:</p>
       <p style="font-style: italic;" class="disabled">Verander de titel van het embed.</p>
       <input type="text" class="form-control" name="title" value="<%= settings.embedSettings.title %>" placeholder="Titel" required>
+      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
+      <p style="font-style: italic;" class="disabled">Verander de beschrijving van het embed.</p>
+      <input type="text" class="form-control" name="description2" value="<%= settings.embedSettings.description %>" placeholder="Beschrijving" required>
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Kleur:</p>
       <p style="font-style: italic;" class="disabled">Verander het embed kleur.</p>
-      <input type="color" name="color" class="form-control" value="<%= settings.embedSettings.color %>" placeholder="Kleur" required>
-      <br><button type="submit" class="btn btn-secondary text-white">Save Settings</button>
+      <input type="color" name="color" class="form-control" value="<%= settings.embedSettings.color %>" required>
+      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Afbeelding:</p>
+      <p style="font-style: italic;" class="disabled">Verander de afbeelding van het embed.</p>
+      <input type="text" class="form-control" name="image" value="<%= settings.embedSettings.image %>" placeholder="Afbeelding" required>
+      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Footer:</p>
+      <p style="font-style: italic;" class="disabled">Verander de footer van het embed.</p>
+      <input type="text" class="form-control" name="footer" value="<%= settings.embedSettings.footer %>" placeholder="Footer" required>
+      <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Embed channel:</p>
+      <p style="font-style: italic;" class="disabled">Verstuur het embed bericht.</p>
+      <select name='ticketPanel' class="form-control">
+        <option value="" disabled selected hidden> <% if (guild.channels.cache.get(settings.embedSettings.channelId)) { %> <%= guild.channels.cache.get(settings.embedSettings.channelId).name %> <% } else { %> Selecteer een channel <% } %> </option>
+        <% guild.channels.cache.forEach(channel => { 
+          if(channel.type !== 'text') return;
+          %>
+        <option><%= channel.name %></option>
+        <% }) %>
+      </select>
+      <br><button type="submit" class="btn btn-secondary text-white">Verstuur bericht</button>
     </form>
   </div>
   <% if (settings.winkelsSettings.lenght >= 15) { %>
