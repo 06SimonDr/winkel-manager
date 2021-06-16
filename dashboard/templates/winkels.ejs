@@ -1,6 +1,6 @@
 <%- include("partials/header", { bot, user, path, title: `Settings | ${guild.name}` }) %>
 
-<% console.log(settings.embedSettings) %>
+<% const embedSettings = settings.embedSettings[0] %>
 <div class="container-sm center" style="margin-top: 30px;">
   <div class="d-grid gap-2 col-4 mx-auto">
     <% if (alert) { %>
@@ -13,38 +13,38 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Titel:</p>
       <p style="font-style: italic;" class="disabled">Verander de titel van het embed.</p>
-      <input type="text" class="form-control" name="title" value="<%= settings.embedSettings.title %>" placeholder="Titel" required>
+      <input type="text" class="form-control" name="title" value="<%= embedSettings.title %>" placeholder="Titel" required>
       <br><button type="submit" class="btn btn-success text-white">Save settings</button>
     </form>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
       <p style="font-style: italic;" class="disabled">Verander de beschrijving van het embed.</p>
-      <input type="text" class="form-control" name="description2" value="<%= settings.embedSettings.description %>" placeholder="Beschrijving" required>
+      <input type="text" class="form-control" name="description2" value="<%= embedSettings.description %>" placeholder="Beschrijving" required>
       <br><button type="submit" class="btn btn-success text-white">Save settings</button>
     </form>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Kleur:</p>
       <p style="font-style: italic;" class="disabled">Verander het embed kleur.</p>
-      <input type="color" name="color" class="form-control" value="<%= settings.embedSettings.color %>" required>
+      <input type="color" name="color" class="form-control" value="<%= embedSettings.color %>" required>
       <br><button type="submit" class="btn btn-success text-white">Save settings</button>
     </form>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Afbeelding:</p>
       <p style="font-style: italic;" class="disabled">Verander de afbeelding van het embed.</p>
-      <input type="text" class="form-control" name="image" value="<%= settings.embedSettings.image %>" placeholder="Afbeelding" required>
+      <input type="text" class="form-control" name="image" value="<%= embedSettings.image %>" placeholder="Afbeelding" required>
       <br><button type="submit" class="btn btn-success text-white">Save settings</button>
     </form>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Footer:</p>
       <p style="font-style: italic;" class="disabled">Verander de footer van het embed.</p>
-      <input type="text" class="form-control" name="footer" value="<%= settings.embedSettings.footer %>" placeholder="Footer" required>
+      <input type="text" class="form-control" name="footer" value="<%= embedSettings.footer %>" placeholder="Footer" required>
       <br><button type="submit" class="btn btn-success text-white">Save settings</button>
     </form>
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Embed channel:</p>
       <p style="font-style: italic;" class="disabled">Verstuur het embed bericht.</p>
       <select name='channel' class="form-control">
-        <option value="" disabled selected hidden> <% if (guild.channels.cache.get(settings.embedSettings.channelId)) { %> <%= guild.channels.cache.get(settings.embedSettings.channelId).name %> <% } else { %> Selecteer een channel <% } %> </option>
+        <option value="" disabled selected hidden> <% if (guild.channels.cache.get(embedSettings.channelId)) { %> <%= guild.channels.cache.get(embedSettings.channelId).name %> <% } else { %> Selecteer een channel <% } %> </option>
         <% guild.channels.cache.forEach(channel => { 
           if(channel.type !== 'text') return;
           %>
