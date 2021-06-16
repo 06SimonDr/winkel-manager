@@ -9,14 +9,14 @@ module.exports = {
             console.log('Event')
             const results = await winkelEmbedSchema.find()
             for (var result of results) {
-                var guild = client.guilds.cache.get(result.serverId)
+                var guild = await client.guilds.cache.get(result.serverId)
                 if (!guild) {
                     await winkelSchema.deleteOne({ serverId: result.serverId })
                     await winkelEmbedSchema.deleteOne({ serverId: result.serverId })
                 }
-                var channel = guild.channels.cache.get(result.channelId)
+                var channel = await guild.channels.cache.get(result.channelId)
                 if (!channel) return console.log('Geen channel')
-                var message = channel.messages.fetch(result.messageId)
+                var message = await channel.messages.fetch(result.messageId)
 
                 const winkels = await winkelSchema.find({ serverId: result.serverId })
                 var embed = new discord.MessageEmbed()
