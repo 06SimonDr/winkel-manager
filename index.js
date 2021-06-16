@@ -81,11 +81,18 @@ client.on("message", async (message) => {
       return message.reply('Je hebt de permissie `'+commands.permissions+"` nodig om dit command te kunnen uitvoeren!");
     }
   }
-  if (commands.args) {
-  if (commands.args !== args.length) {
-    if (commands.args < args.length) var reply = `Je hebt te veel argumenten opgegeven!`;
-    if (commands.args > args.length) var reply = `Je hebt te weinig argumenten opgegeven!`;
-  
+  if (commands.minArgs) {
+  if (commands.minArgs !== args.length) {
+    if (commands.minArgs > args.length) var reply = `Je hebt te weinig argumenten opgegeven!`;
+    if (commands.usage) {
+      reply += `\nGebruik: \`${prefix}${commands.name} ${commands.usage}\``;
+    }
+    return message.channel.send(reply);
+  }
+}
+if (command.maxArgs) {
+  if (commands.maxArgs !== args.length) {
+    if (commands.maxArgs < args.length) var reply = `Je hebt te veel argumenten opgegeven!`;
     if (commands.usage) {
       reply += `\nGebruik: \`${prefix}${commands.name} ${commands.usage}\``;
     }

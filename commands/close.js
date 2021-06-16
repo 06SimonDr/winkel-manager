@@ -4,7 +4,7 @@ const schema = require('../models/winkels')
 module.exports = {
 	name: 'close',
 	description: 'Sluit een winkel',
-	args: 1,
+	mineArgs: 1,
 	usage: '<Winkel>',
 	ownerOnly: false,
 	async execute(client, message, args, prefix) {

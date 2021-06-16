@@ -4,7 +4,7 @@ module.exports = {
 	name: 'test',
 	description: 'Ping!',
 	aliases: ['ping', 'create'],
-	args: 0,
+	minArgs: 0,
 	usage: '<naam> <beschrijving> <actie> <waarde>',
 	ownerOnly: false,
 	async execute(client, message, args, prefix) {
