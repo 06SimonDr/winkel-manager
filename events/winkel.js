@@ -6,7 +6,6 @@ module.exports = {
 	name: 'ready',
 	async execute(client) {
 		setInterval(async function() {
-            console.log('Event')
             const results = await winkelEmbedSchema.find()
             for (var result of results) {
                 var guild = await client.guilds.cache.get(result.serverId)
@@ -15,7 +14,6 @@ module.exports = {
                     await winkelEmbedSchema.deleteOne({ serverId: result.serverId })
                 }
                 var channel = await guild.channels.cache.get(result.channelId)
-                if (!channel) return console.log('Geen channel')
                 var message = await channel.messages.fetch(result.messageId)
 
                 const winkels = await winkelSchema.find({ serverId: result.serverId })
@@ -29,7 +27,7 @@ module.exports = {
                 embed.setTimestamp()
 
                 for (const winkel of winkels) {
-                    embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\nLocatie: ${winkel.location}`)
+                    embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                 }
                 if (!message || !result.messageId) {
                     channel.send(embed).then(async msg => {
