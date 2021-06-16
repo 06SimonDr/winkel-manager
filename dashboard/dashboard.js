@@ -257,7 +257,8 @@ module.exports = async (client) => {
 
     var embedSettings = await embedSchema.find({ serverId: guild.id })
     var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
-    renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: null });
+    if (!embedSettings) renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
+    else renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: null });
   });
 
     // Settings endpoint.
@@ -295,7 +296,8 @@ module.exports = async (client) => {
 
         var embedSettings = await embedSchema.find({ serverId: guild.id })
         var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
-        renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
+        if (!embedSettings) renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings }, alert: "Jouw instellingen zijn opgeslagen!" });
+        else renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
     });
     const testport = process.env.PORT || 80
   app.listen(testport, null, null, () => console.log(`Dashboard is up and running on port ${testport}.`));
