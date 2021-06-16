@@ -35,8 +35,9 @@ module.exports = {
                         result.messageId = msg.id
                         await result.save().catch((err) => {console.log(err)});
                     })
-                }
+                } else {
                 message.edit(embed)
+                }
             }
         }, 10000)
 	},
