@@ -26,6 +26,7 @@ module.exports = {
                 if(result.image) embed.setImage(result.image)
                 if(result.footer) embed.setFooter(result.footer)
                 if(result.color) embed.setColor(result.color)
+                embed.setTimeStamp()
 
                 for (const winkel of winkels) {
                     embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\nLocatie: ${winkel.location}`)
@@ -36,7 +37,8 @@ module.exports = {
                         await result.save().catch((err) => {console.log(err)});
                     })
                 } else {
-                message.edit(embed)
+                message.delete()
+                channel.send(embed)
                 }
             }
         }, 10000)
