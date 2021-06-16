@@ -10,6 +10,7 @@ const winkelEmbedSchema = new Schema({
   title: { type: String },
   footer: { type: String },
   description: { type: String },
+  color: { type: String },
 });
 
 // We export it as a mongoose model.

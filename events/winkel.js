@@ -7,7 +7,7 @@ module.exports = {
 	async execute(client) {
 		setInterval(async function() {
             const results = await winkelEmbedSchema.find()
-            for (const result of results) {
+            for (var result of results) {
                 var guild = client.guilds.cache.get(result.serverId)
                 if (!guild) {
                     await winkelSchema.deleteOne({ serverId: result.serverId })
@@ -24,12 +24,16 @@ module.exports = {
                 if(result.description) embed.setDescription(result.description)
                 if(result.image) embed.setImage(result.image)
                 if(result.footer) embed.setFooter(result.footer)
+                if(result.color) embed.setColor(result.color)
 
                 for (const winkel of winkels) {
                     embed.addField(`${winkel.name} (${winkel.stad})`, `${winkel.description}\nLocatie: ${winkel.location}`)
                 }
                 if (!message) {
-                    channel.send(embed)
+                    channel.send(embed).then(msg => {
+                        result.messageId = msg.id
+                        await result.save().catch((err) => {console.log(err)});
+                    })
                 }
                 message.edit(embed)
             }
