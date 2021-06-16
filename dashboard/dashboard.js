@@ -270,6 +270,9 @@ module.exports = async (client) => {
         if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
         var newSettings2 = await embedSchema.findOne({ serverId: guild.id })
+        if(!newSettings2) {
+          var newSettings2 = await new embedSchema({ serverId: guild.id });
+        }
         if(req.body.channel) newSettings2.channelId = guild.channels.cache.find(channel => channel.name === channel).id
         if(req.body.title) newSettings2.title = req.body.title
         if(req.body.description2) newSettings2.description = req.body.description2
