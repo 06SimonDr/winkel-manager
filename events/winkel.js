@@ -18,7 +18,7 @@ module.exports = {
                 if (!channel) return console.log('Geen channel')
                 var message = channel.messages.fetch(result.messageId)
 
-                const winkels = winkelSchema.find({ serverId: result.serverId })
+                const winkels = await winkelSchema.find({ serverId: result.serverId })
                 var embed = new discord.MessageEmbed()
                 if(result.title) embed.setTitle(result.title)
                 else embed.setTitle('Open winkels')
