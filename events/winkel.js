@@ -28,10 +28,10 @@ module.exports = {
 
                 for (const winkel of winkels) {
                     if (winkel.status === 'OPEN') {
-                        embed.addField(`✅ - ${winkel.name} (${winkel.stad})`, `✅ - Geopend\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
+                        embed.addField(`${winkel.name} (${winkel.stad})`, `✅ - Geopend\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                     }
                     else {
-                        embed.addField(`❌ - ${winkel.name} (${winkel.stad})`, `❌ - Gesloten\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
+                        embed.addField(`${winkel.name} (${winkel.stad})`, `❌ - Gesloten\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                     }
                 }
                 if (!message || !result.messageId) {
@@ -43,6 +43,6 @@ module.exports = {
                 await message.edit(embed)
                 }
             }
-        }, 10000)
+        }, 20000)
 	},
 };
