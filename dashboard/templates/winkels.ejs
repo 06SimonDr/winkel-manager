@@ -47,7 +47,7 @@
         <% guild.channels.cache.forEach(channel => { 
           if(channel.type !== 'text') return;
           %>
-        <option><%= channel.name %></option>
+        <option value="<%= channel.id %>"><%= channel.name %></option>
         <% }) %>
       </select>
       <br><button type="submit" class="btn btn-success text-white">Verstuur bericht</button>
