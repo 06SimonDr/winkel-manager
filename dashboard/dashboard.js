@@ -10,7 +10,6 @@ const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const Discord = require("discord.js");
 const GuildSettings = require("../models/settings");
-const IpCheck = require("../models/ipcheck");
 const winkelSchema  = require('../models/winkels')
 
 // We instantiate express app and the session store.
