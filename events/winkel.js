@@ -12,6 +12,7 @@ module.exports = {
                 if (!guild) {
                     await winkelSchema.deleteOne({ serverId: result.serverId })
                     await winkelEmbedSchema.deleteOne({ serverId: result.serverId })
+                    return
                 }
                 var channel = await guild.channels.cache.get(result.channelId)
                 var message = await channel.messages.fetch(result.messageId)
