@@ -3,7 +3,7 @@
 <div class="container-sm center" style="margin-top: 30px;">
   <% if (settings.lenght >= 15) { %>
     <p>Het maximaal aantal winkels is bereikt (15 van de 15)</p>
-  <% else { %>
+  <% } else { %>
     <button type="button" class="btn btn-success text-white" data-toggle="modal" data-target="#newStore" data-whatever="@mdo">Add winkel</button>
   <% } %>
     <div class="modal fade" id="newStore" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
