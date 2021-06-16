@@ -258,7 +258,7 @@ module.exports = async (client) => {
     // We retrive the settings stored for this guild.
     var storedSettings = await winkelSchema.find({ serverId: guild.id });
     if (!storedSettings) {
-      renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
+      renderTemplate(res, req, "winkels.ejs", { guild, settings: null, alert: null });
     } else {
     renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: null });
     }
@@ -288,7 +288,7 @@ module.exports = async (client) => {
 
         var storedSettings = await winkelSchema.find({ serverId: guild.id });
     if (!storedSettings) {
-      renderTemplate(res, req, "winkels.ejs", { guild, alert: null });
+      renderTemplate(res, req, "winkels.ejs", { guild, settings: null, alert: null });
     } else {
     renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: "Your settings have been saved." });
     }
