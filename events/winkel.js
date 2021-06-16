@@ -37,8 +37,7 @@ module.exports = {
                         await result.save().catch((err) => {console.log(err)});
                     })
                 } else {
-                message.delete()
-                channel.send(embed)
+                await message.edit(embed)
                 }
             }
         }, 10000)
