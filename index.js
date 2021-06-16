@@ -82,8 +82,8 @@ client.on("message", async (message) => {
     }
   }
   if (commands.minArgs) {
-  if (commands.minArgs !== args.length) {
-    if (commands.minArgs > args.length) var reply = `Je hebt te weinig argumenten opgegeven!`;
+    if (commands.minArgs > args.length) {
+    var reply = `Je hebt te weinig argumenten opgegeven!`;
     if (commands.usage) {
       reply += `\nGebruik: \`${prefix}${commands.name} ${commands.usage}\``;
     }
@@ -91,8 +91,8 @@ client.on("message", async (message) => {
   }
 }
 if (command.maxArgs) {
-  if (commands.maxArgs !== args.length) {
-    if (commands.maxArgs < args.length) var reply = `Je hebt te veel argumenten opgegeven!`;
+    if (commands.maxArgs < args.length) {
+    var reply = `Je hebt te veel argumenten opgegeven!`;
     if (commands.usage) {
       reply += `\nGebruik: \`${prefix}${commands.name} ${commands.usage}\``;
     }
