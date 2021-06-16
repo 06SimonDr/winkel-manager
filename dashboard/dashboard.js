@@ -11,6 +11,7 @@ const bodyParser = require("body-parser");
 const Discord = require("discord.js");
 const GuildSettings = require("../models/settings");
 const winkelSchema  = require('../models/winkels')
+const embedSchema = require('../models/winkel-embed')
 
 // We instantiate express app and the session store.
 const app = express();
@@ -254,13 +255,9 @@ module.exports = async (client) => {
     if (!member) return res.redirect("/dashboard");
     if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
-    // We retrive the settings stored for this guild.
-    var storedSettings = await winkelSchema.find({ serverId: guild.id });
-    if (!storedSettings) {
-      renderTemplate(res, req, "winkels.ejs", { guild, settings: null, alert: null });
-    } else {
-    renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: null });
-    }
+    var embedSettings = await embedSchema.find({ serverId: guild.id })
+    var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
+    renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: null });
   });
 
     // Settings endpoint.
@@ -285,12 +282,9 @@ module.exports = async (client) => {
 
         if (req.body.task === "DELETE") var newSettings = await winkelSchema.deleteOne({ _id: req.body.storeId });
 
-        var storedSettings = await winkelSchema.find({ serverId: guild.id });
-    if (!storedSettings) {
-      renderTemplate(res, req, "winkels.ejs", { guild, settings: null, alert: null });
-    } else {
-    renderTemplate(res, req, "winkels.ejs", { guild, settings: storedSettings, alert: "Your settings have been saved." });
-    }
+        var embedSettings = await embedSchema.find({ serverId: guild.id })
+        var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
+        renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
     });
     const testport = process.env.PORT || 80
   app.listen(testport, null, null, () => console.log(`Dashboard is up and running on port ${testport}.`));
