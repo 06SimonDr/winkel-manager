@@ -9,11 +9,11 @@ module.exports = {
 	ownerOnly: false,
 	async execute(client, message, args, prefix) {
 
-        var winkelName = args.splice(0, args.length).join(" ").toLowerCase()
+        var winkelName = args.splice(0, args.length).join(" ")
 
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
-        
+
 		await schema.findOneAndUpdate(
             {
                 serverId: message.guild.id,
