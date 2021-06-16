@@ -13,7 +13,7 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Titel:</p>
       <p style="font-style: italic;" class="disabled">Verander de titel van het embed.</p>
-      <% if (embedSettings.title) { %>
+      <% if (embedSettings.title !== null) { %>
       <input type="text" class="form-control" name="title" value="<%= embedSettings.title %>" placeholder="Titel" required>
       <% } else { %>
         <input type="text" class="form-control" name="title" placeholder="Titel" required>
@@ -23,7 +23,7 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Beschrijving:</p>
       <p style="font-style: italic;" class="disabled">Verander de beschrijving van het embed.</p>
-      <% if (embedSettings.description) { %>
+      <% if (embedSettings.description !== null) { %>
         <input type="text" class="form-control" name="description" value="<%= embedSettings.description %>" placeholder="Beschrijving" required>
         <% } else { %>
           <input type="text" class="form-control" name="description" placeholder="Beschrijving" required>
@@ -33,7 +33,7 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Kleur:</p>
       <p style="font-style: italic;" class="disabled">Verander het embed kleur.</p>
-      <% if (embedSettings.color) { %>
+      <% if (embedSettings.color !== null) { %>
         <input type="text" class="form-control" name="color" value="<%= embedSettings.color %>" placeholder="Kleur" required>
         <% } else { %>
           <input type="text" class="form-control" name="color" placeholder="Kleur" required>
@@ -43,7 +43,7 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Afbeelding:</p>
       <p style="font-style: italic;" class="disabled">Verander de afbeelding van het embed.</p>
-      <% if (embedSettings.image) { %>
+      <% if (embedSettings.image !== null) { %>
         <input type="text" class="form-control" name="image" value="<%= embedSettings.image %>" placeholder="Afbeelding" required>
         <% } else { %>
           <input type="text" class="form-control" name="image" placeholder="Afbeelding" required>
@@ -53,7 +53,7 @@
     <form method="POST">
       <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Footer:</p>
       <p style="font-style: italic;" class="disabled">Verander de footer van het embed.</p>
-      <% if (embedSettings.footer) { %>
+      <% if (embedSettings.footer !== null) { %>
         <input type="text" class="form-control" name="footer" value="<%= embedSettings.footer %>" placeholder="Footer" required>
         <% } else { %>
           <input type="text" class="form-control" name="footer" placeholder="Footer" required>
