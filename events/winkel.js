@@ -16,8 +16,6 @@ module.exports = {
                 }
                 var channel = await guild.channels.cache.get(result.channelId)
                 if(!channel) return
-                var message = await channel.messages.fetch(result.messageId).catch((err) => { console.log("Geen bericht gevonden!") })
-
                 const winkels = await winkelSchema.find({ serverId: result.serverId })
                 var embed = new discord.MessageEmbed()
                 if(result.title) embed.setTitle(result.title)
@@ -27,6 +25,7 @@ module.exports = {
                 if(result.footer) embed.setFooter(result.footer)
                 if(result.color) embed.setColor(result.color)
                 embed.setTimestamp()
+                var message = await channel.messages.fetch(result.messageId).catch((err) => { channel.send(embed) })
 
                 for (const winkel of winkels) {
                     if (winkel.status === 'OPEN') {
@@ -36,23 +35,14 @@ module.exports = {
                         embed.addField(`${winkel.name} (${winkel.stad})`, `❌ - Gesloten\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                     }
                 }
-                if (!message) {
-                    channel.send(embed).then(async msg => {
-                        result.messageId = msg.id
-                        await result.save().catch((err) => {console.log(err)});
-                    })
-                } else {
-                await message.edit(embed)
-                }
-
-                /*try {
+                try {
                     await message.edit(embed)
                 } catch(err) {
                     channel.send(embed).then(async msg => {
                         result.messageId = msg.id
                         await result.save().catch((err) => {console.log(err)});
                     })
-                }*/
+                }
             }
         }, 20000)
 	},
