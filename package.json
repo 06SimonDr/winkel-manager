@@ -25,6 +25,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^5.0.1",
+    "discord-rpc": "^4.0.1",
     "discord.js": "^12.1.1",
     "ejs": "^3.0.2",
     "express": "^4.17.1",

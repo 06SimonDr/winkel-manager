@@ -7,7 +7,9 @@ const GuildSettings = require("./models/settings");
 const Dashboard = require("./dashboard/dashboard");
 const fs = require('fs');
 const winkelSchema = require('./models/winkels')
+const DiscordRPC = require('discord-rpc');
 
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
 const client = new Discord.Client({
   ws: {
     intents: [
@@ -58,7 +60,17 @@ client.on("ready", async () => {
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
 
-  setInterval(async () => {
+  rpc.setActivity({
+    details: `test`,
+    state: 'in slither party',
+    startTimestamp,
+    largeImageKey: 'snek_large',
+    largeImageText: 'tea is delicious',
+    smallImageKey: 'snek_small',
+    smallImageText: 'i am my own pillows',
+    instance: false,
+  });
+  /*setInterval(async () => {
     var aantalWinkels = await winkelSchema.find().length
     const activities = [
       { name: `${aantalWinkels} winkels`, type: "LOOKING" },
@@ -67,7 +79,7 @@ client.on("ready", async () => {
     ]
     const randomIndex = Math.floor(Math.random() * (activities.length - 1) + 1);
     client.user.setActivity(activities[randomIndex])
-  }, 5000);
+  }, 5000);*/
 });
 
 // We listen for message events.
@@ -130,3 +142,4 @@ client.on("warn", console.warn);
 
 // We login into the bot.
 client.login(config.token);
+rpc.login({ clientId : "820711214258454589" }).catch(console.error);
