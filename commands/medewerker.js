@@ -1,0 +1,106 @@
+const discord = require('discord.js')
+const winkelSchema = require('../models/winkels')
+
+module.exports = {
+	name: 'medewerker',
+	description: 'Voeg een medewerker aan een winkel toe',
+	aliases: ['medw'],
+	minArgs: 3,
+	usage: '<add/remove> <Role of Tag> <Winkel>',
+    permissions: ["MANAGE_ROLES"],
+	async execute(client, message, args, prefix) {
+
+		var tagged = message.mentions.members.first().id
+        if (!tagged) var tagged = message.mentions.channels.first().id
+        if (!tagged) return message.reply('Tag een user of een channel!')
+
+        var winkelName = args.splice(2, args.length).join(" ")
+        const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
+        if (!result) return message.reply("Winkel niet gevonden!")
+
+        if(message.guild.members.get(tagged)) {
+        if (args[0] === "add") {
+            await schema.findOneAndUpdate(
+                {
+                    serverId: message.guild.id,
+                    name: winkelName
+                },
+                {
+                    serverId: message.guild.id,
+                    name: winkelName,
+                    $push: {
+                        medewerkers: {
+                            userId: tagged,
+                            date: "null",
+                            active: false
+                        }
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+        }
+        if (args[0] === "remove") {
+            await schema.findOneAndUpdate(
+                {
+                    serverId: message.guild.id,
+                    name: winkelName
+                },
+                {
+                    serverId: message.guild.id,
+                    name: winkelName,
+                    $pull: {
+                        medewerkers: {
+                            userId: tagged,
+                        }
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+        }
+    }
+    else {
+        if (args[0] === "add") {
+            await schema.findOneAndUpdate(
+                {
+                    serverId: message.guild.id,
+                    name: winkelName
+                },
+                {
+                    serverId: message.guild.id,
+                    name: winkelName,
+                    $push: {
+                        roles: tagged
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+        }
+        if (args[0] === "remove") {
+            await schema.findOneAndUpdate(
+                {
+                    serverId: message.guild.id,
+                    name: winkelName
+                },
+                {
+                    serverId: message.guild.id,
+                    name: winkelName,
+                    $pull: {
+                        roles: tagged
+                    }
+                },
+                {
+                    upsert: true
+                }
+            )
+        }
+    }
+
+    message.channel.send('Medewerker succesvol toegevoegd!')
+	},
+};

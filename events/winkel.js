@@ -28,7 +28,7 @@ module.exports = {
                 var message = await channel.messages.fetch(result.messageId).catch((err) => { channel.send(embed) })
 
                 for (const winkel of winkels) {
-                    if (winkel.status === 'OPEN') {
+                    if (winkel.active > 0) {
                         embed.addField(`${winkel.name} (${winkel.stad})`, `✅ - Geopend\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                     }
                     else {

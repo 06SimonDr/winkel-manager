@@ -13,6 +13,33 @@ module.exports = {
 
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
+        if (!result.medewerkers.includes(message.author.id)) {
+            result.roles.forEach(role => {
+                if(message.author.roles.cache.get(role)) {
+                    await schema.findOneAndUpdate(
+                        {
+                            serverId: message.guild.id,
+                            name: winkelName
+                        },
+                        {
+                            serverId: message.guild.id,
+                            name: winkelName,
+                            $push: {
+                                medewerkers: {
+                                    userId: tagged,
+                                    date: "null",
+                                    active: false
+                                }
+                            }
+                        },
+                        {
+                            upsert: true
+                        }
+                    )
+                }
+            })
+        }
+        if (!result.medewerkers.includes(message.author.id)) return message.reply('Je werkt niet in deze winkel!')
 
 		await schema.findOneAndUpdate(
             {
@@ -22,7 +49,16 @@ module.exports = {
             {
                 serverId: message.guild.id,
                 name: winkelName,
-                status: "OPEN"
+                $inc: {
+                    active: 1
+                },
+                $: {
+                    medewerkers: {
+                        userId: message.author.id,
+                        date: message.createdTimestamp,
+                        active: true
+                    }
+                }
             },
             {
                 upsert: true
@@ -30,7 +66,7 @@ module.exports = {
         )
 
         var embed = new discord.MessageEmbed()
-            .setTitle(`${winkelName} is geopend!`)
+            .setTitle(`Je bent nu aanwezig bij ${winkelName}!`)
 
         message.channel.send(embed)
 	},

@@ -8,7 +8,14 @@ const winkelSchema = new Schema({
   description: { type: String },
   stad: { type: String },
   location: { type: String },
-  status: { type: String }
+  active: { type: Number },
+  medewerkers: { 
+    type: Array,
+    userId: { type: String },
+    date: { type: String },
+    active: { type: Boolean }
+  },
+  roles: { type: Array }
 });
 
 // We export it as a mongoose model.

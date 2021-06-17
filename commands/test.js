@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['ping', 'create'],
 	minArgs: 0,
 	usage: '<naam> <beschrijving> <actie> <waarde>',
-	ownerOnly: false,
+	ownerOnly: true,
 	async execute(client, message, args, prefix) {
 
 		const embed = new discord.MessageEmbed()

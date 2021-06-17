@@ -13,6 +13,7 @@ module.exports = {
 
 		const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
+        if (!result.medewerkers.includes(message.author.id)) return message.reply('Je werkt niet in deze winkel!')
 
 		await schema.findOneAndUpdate(
             {
@@ -22,7 +23,15 @@ module.exports = {
             {
                 serverId: message.guild.id,
                 name: winkelName,
-                status: "CLOSED"
+                $inc: {
+                    active: -1
+                },
+                $: {
+                    medewerkers: {
+                        userId: message.author.id,
+                        active: false
+                    }
+                }
             },
             {
                 upsert: true
@@ -30,7 +39,7 @@ module.exports = {
         )
 
         var embed = new discord.MessageEmbed()
-            .setTitle(`${winkelName} is gesloten!`)
+            .setTitle(`Je bent nu afwezig bij ${winkelName}!`)
 
         message.channel.send(embed)
 	},
