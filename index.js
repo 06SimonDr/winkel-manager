@@ -130,4 +130,3 @@ client.on("warn", console.warn);
 
 // We login into the bot.
 client.login(config.token);
-rpc.login({ clientId : "820711214258454589" }).catch(console.error);
