@@ -9,12 +9,6 @@ const winkelSchema = new Schema({
   stad: { type: String },
   location: { type: String },
   active: { type: Number },
-  medewerkers: { 
-    type: Array,
-    userId: { type: String },
-    date: { type: String },
-    active: { type: Boolean }
-  },
   roles: { type: Array }
 });
 

@@ -17,47 +17,16 @@ module.exports = {
         if (!result.medewerkers.includes(message.author.id)) {
             result.roles.forEach(async role => {
                 if(message.member.roles.cache.has(role)) {
-                    await schema.findOneAndUpdate(
-                        {
-                            serverId: message.guild.id,
-                            name: winkelName
-                        },
-                        {
-                            serverId: message.guild.id,
-                            name: winkelName,
-                            $push: {
-                                medewerkers: {
-                                    userId: message.author.id,
-                                    date: "null",
-                                    active: false
-                                }
-                            }
-                        },
-                        {
-                            upsert: true
-                        }
+                    await medwSchema.findOneAndUpdate(
+                        { serverId: message.guild.id, userId: message.author.id },
+                        { serverId: message.guild.id, userId: message.author.id, activeWinkel: null },
+                        { upsert: true }
                     )
 
                     await schema.findOneAndUpdate(
-                        {
-                            serverId: message.guild.id,
-                            name: winkelName,
-                            "medewerkers.userId": message.author.id
-                        },
-                        {
-                            serverId: message.guild.id,
-                            name: winkelName,
-                            $inc: {
-                                active: -1
-                            },
-                            $set: {
-                                "medewerkers.$.userId": message.author.id,
-                                "medewerkers.$.active": false
-                            }
-                        },
-                        {
-                            upsert: true
-                        }
+                        { serverId: message.guild.id, name: winkelName },
+                        { serverId: message.guild.id, name: winkelName, $inc: { active: -1 } },
+                        { upsert: true }
                     )
             
                     var embed = new discord.MessageEmbed()

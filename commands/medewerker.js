@@ -1,5 +1,6 @@
 const discord = require('discord.js')
 const schema = require('../models/winkels')
+const medwSchema = require("../models/werknemers")
 
 module.exports = {
 	name: 'medewerker',
@@ -27,45 +28,17 @@ module.exports = {
 
         if(message.guild.members.cache.get(tagged)) {
         if (args[0] === "add") {
-            await schema.findOneAndUpdate(
-                {
-                    serverId: message.guild.id,
-                    name: winkelName
-                },
-                {
-                    serverId: message.guild.id,
-                    name: winkelName,
-                    $push: {
-                        medewerkers: {
-                            userId: tagged,
-                            date: "null",
-                            active: false
-                        }
-                    }
-                },
-                {
-                    upsert: true
-                }
+            await medwSchema.findOneAndUpdate(
+                { serverId: message.guild.id, userId: message.author.id },
+                { serverId: message.guild.id, userId: message.author.id, $push: { winkels: winkelName } },
+                { upsert: true }
             )
         }
         if (args[0] === "remove") {
-            await schema.findOneAndUpdate(
-                {
-                    serverId: message.guild.id,
-                    name: winkelName
-                },
-                {
-                    serverId: message.guild.id,
-                    name: winkelName,
-                    $pull: {
-                        medewerkers: {
-                            userId: tagged,
-                        }
-                    }
-                },
-                {
-                    upsert: true
-                }
+            await medwSchema.findOneAndUpdate(
+                { serverId: message.guild.id, userId: message.author.id },
+                { serverId: message.guild.id, userId: message.author.id, $pull: { winkels: winkelName } },
+                { upsert: true }
             )
         }
     }
