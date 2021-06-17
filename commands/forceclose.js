@@ -14,7 +14,7 @@ module.exports = {
 
         var winkelName = args.splice(0, args.length).join(" ")
         const result2 = await medwSchema.find({ serverId: message.guild.id, activeWinkel: winkelName })
-        result2.forEach(schema => {
+        result2.forEach(async schema => {
             schema.activeWinkel = null
             await schema.save().catch((err) => {console.log(err)});
         })
