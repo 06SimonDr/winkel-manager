@@ -60,8 +60,9 @@ client.on("ready", async () => {
   Dashboard(client);
 
   setInterval(() => {
+    var aantalWinkels = await winkelSchema.find().length
     const activities = [
-      { name: await winkelSchema.find().length, type: "LOOKING" },
+      { name: `${aantalWinkels} winkels`, type: "LOOKING" },
       { name: "help", type: "LISTENING" },
       { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
     ]
