@@ -41,7 +41,8 @@ module.exports = {
                     await schema.findOneAndUpdate(
                         {
                             serverId: message.guild.id,
-                            name: winkelName
+                            name: winkelName,
+                            "medewerkers.userId": message.author.id
                         },
                         {
                             serverId: message.guild.id,
