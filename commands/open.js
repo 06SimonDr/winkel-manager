@@ -15,7 +15,6 @@ module.exports = {
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         const result2 = await medwSchema.findOne({ serverId: message.guild.id, userId: message.author.id })
         if (!result) return message.reply("Winkel niet gevonden!")
-        if (!result2.winkels.includes(winkelName)) {
             result.roles.forEach(async role => {
                 if(message.member.roles.cache.has(role)) {
                     await medwSchema.findOneAndUpdate(
@@ -36,6 +35,5 @@ module.exports = {
                     message.channel.send(embed)
                 }
             })
-        }
 	},
 };
