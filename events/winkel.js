@@ -16,14 +16,14 @@ module.exports = {
                 }
                 var channel = await guild.channels.cache.get(result.channelId)
                 if(!channel) return
-                var message = await channel.messages.fetch(result.messageId).catch(err => { return })
+                var message = await channel.messages.fetch(result.messageId).catch((err))
 
                 const winkels = await winkelSchema.find({ serverId: result.serverId })
                 var embed = new discord.MessageEmbed()
                 if(result.title) embed.setTitle(result.title)
                 else embed.setTitle('Open winkels')
                 if(result.description) embed.setDescription(result.description)
-                if(result.image) embed.setImage(result.image)
+                if(result.image) embed.setThumbnail(result.image)
                 if(result.footer) embed.setFooter(result.footer)
                 if(result.color) embed.setColor(result.color)
                 embed.setTimestamp()
