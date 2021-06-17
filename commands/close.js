@@ -37,7 +37,7 @@ module.exports = {
                             upsert: true
                         }
                     )
-                    
+
                     await schema.findOneAndUpdate(
                         {
                             serverId: message.guild.id,
@@ -49,12 +49,8 @@ module.exports = {
                             $inc: {
                                 active: -1
                             },
-                            $: {
-                                medewerkers: {
-                                    userId: message.author.id,
-                                    active: false
-                                }
-                            }
+                            "medewerkers.$.userId": message.author.id,
+                            "medewerkers.$.active": false
                         },
                         {
                             upsert: true
