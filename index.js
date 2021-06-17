@@ -21,8 +21,10 @@ const botOwner = "552132590044315668"
 client.commands = new Discord.Collection();
 
 mongoose.connect(config.mongodbUrl, {
+  keepAlive: true,
   useNewUrlParser: true,
-  useUnifiedTopology: false
+  useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 client.config = config;
 
