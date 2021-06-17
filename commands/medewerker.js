@@ -14,10 +14,10 @@ module.exports = {
 		var tagged = message.mentions.members.first().id
         } catch (err) {
             try {
-                var tagged = message.mentions.channels.first().id
+                var tagged = message.mentions.roles.first().id
             }
             catch (err) {
-                return message.reply('Tag een user of een channel!')
+                return message.reply('Tag een user of een role!')
             }
         }
 
