@@ -59,7 +59,7 @@ client.on("ready", async () => {
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
 
-  setInterval(() => {
+  setInterval(async () => {
     var aantalWinkels = await winkelSchema.find().length
     const activities = [
       { name: `${aantalWinkels} winkels`, type: "LOOKING" },
