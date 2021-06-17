@@ -11,7 +11,7 @@ module.exports = {
 
         var winkelName = args.splice(0, args.length).join(" ")
 
-        const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
+        var result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
         if (!result.medewerkers.includes(message.author.id)) {
             result.roles.forEach(async role => {
@@ -39,6 +39,7 @@ module.exports = {
                 }
             })
         }
+        var result = await schema.findOne({ serverId: message.guild.id, name: winkelName, medewerkers: { $elemMatch: { userId: message.author.id } } })
         if (!result.medewerkers.includes(message.author.id)) return message.reply('Je werkt niet in deze winkel!')
 
 		await schema.findOneAndUpdate(
