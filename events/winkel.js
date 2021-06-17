@@ -15,6 +15,7 @@ module.exports = {
                     return
                 }
                 var channel = await guild.channels.cache.get(result.channelId)
+                if(!channel) return
                 var message = await channel.messages.fetch(result.messageId)
 
                 const winkels = await winkelSchema.find({ serverId: result.serverId })
