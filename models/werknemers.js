@@ -6,7 +6,7 @@ const medwSchema = new Schema({
   serverId: { type: String },
   userId: { type: String },
   winkels: { type: Array },
-  activeWinkel: { type: Array },
+  activeWinkel: { type: String },
   date: { type: String },
 });
 
