@@ -1,5 +1,6 @@
 const discord = require('discord.js')
 const schema = require('../models/winkels')
+const medwSchema = require("../models/werknemers")
 
 module.exports = {
 	name: 'close',
