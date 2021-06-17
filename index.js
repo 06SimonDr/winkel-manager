@@ -19,7 +19,6 @@ const client = new Discord.Client({
 });
 
 const botOwner = "552132590044315668"
-var activityNum = 0
 client.commands = new Discord.Collection();
 
 mongoose.connect(config.mongodbUrl, {
@@ -59,19 +58,8 @@ client.on("ready", async () => {
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
 
-  setInterval(async () => {
-    var aantalWinkels = await winkelSchema.find().length
-    const activities = [
-      { name: `${aantalWinkels} winkels`, type: "LOOKING" },
-      { name: "help", type: "LISTENING" },
-      { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
-    ]
-    if (activityNum === 3) var activityNum = 0
-
-    console.log(activities[activityNum])
-    client.user.setActivity(activities[activityNum]);
-    activityNum++;
-  }, 5000);
+  var activityNum = 0
+  customStatus(activityNum)
 });
 
 // We listen for message events.
@@ -134,3 +122,19 @@ client.on("warn", console.warn);
 
 // We login into the bot.
 client.login(config.token);
+
+async function customStatus(activityNum) {
+  setInterval(async () => {
+    var aantalWinkels = await winkelSchema.find().length
+    const activities = [
+      { name: `${aantalWinkels} winkels`, type: "LOOKING" },
+      { name: "help", type: "LISTENING" },
+      { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
+    ]
+    if (activityNum === 3) var activityNum = 0
+
+    console.log(activities[activityNum])
+    client.user.setActivity(activities[activityNum]);
+    activityNum++;
+  }, 5000);
+}
