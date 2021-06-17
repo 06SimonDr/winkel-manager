@@ -14,6 +14,7 @@ module.exports = {
 
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         const result2 = await medwSchema.findOne({ serverId: message.guild.id, userId: message.author.id })
+        if (result2) if (result2.activeWinkel !== null) return message.reply(`Meld je eerst af bij ${result2.activeWinkel}, voor je een nieuwe winkel opent!`)
         if (!result) return message.reply("Winkel niet gevonden!")
             result.roles.forEach(async role => {
                 if(message.member.roles.cache.has(role)) {
