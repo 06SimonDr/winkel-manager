@@ -26,7 +26,7 @@ module.exports = {
                             name: winkelName,
                             $push: {
                                 medewerkers: {
-                                    userId: tagged,
+                                    userId: message.author.id,
                                     date: "null",
                                     active: false
                                 }
