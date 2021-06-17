@@ -50,8 +50,10 @@ module.exports = {
                             $inc: {
                                 active: -1
                             },
-                            "medewerkers.$.userId": message.author.id,
-                            "medewerkers.$.active": false
+                            $set: {
+                                "medewerkers.$.userId": message.author.id,
+                                "medewerkers.$.active": false
+                            }
                         },
                         {
                             upsert: true

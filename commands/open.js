@@ -49,9 +49,11 @@ module.exports = {
                             $inc: {
                                 active: 1
                             },
-                            "medewerkers.$.userId": message.author.id,
-                            "medewerkers.$.date": message.createdTimestamp,
-                            "medewerkers.$.active": true
+                            $set: {
+                                "medewerkers.$.userId": message.author.id,
+                                "medewerkers.$.date": message.createdTimestamp,
+                                "medewerkers.$.active": true
+                            }
                         },
                         {
                             upsert: true
