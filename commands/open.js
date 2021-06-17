@@ -15,7 +15,7 @@ module.exports = {
         if (!result) return message.reply("Winkel niet gevonden!")
         if (!result.medewerkers.includes(message.author.id)) {
             result.roles.forEach(async role => {
-                if(message.author.roles.get(role)) {
+                if(message.member.roles.has(role)) {
                     await schema.findOneAndUpdate(
                         {
                             serverId: message.guild.id,
