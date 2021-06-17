@@ -36,13 +36,22 @@ module.exports = {
                         embed.addField(`${winkel.name} (${winkel.stad})`, `❌ - Gesloten\n${winkel.description}\n**Locatie:** ${winkel.location}`, true)
                     }
                 }
-                if (!message) {
+                /*if (!message) {
                     channel.send(embed).then(async msg => {
                         result.messageId = msg.id
                         await result.save().catch((err) => {console.log(err)});
                     })
                 } else {
                 await message.edit(embed)
+                }*/
+
+                try {
+                    await message.edit(embed)
+                } catch(err) {
+                    channel.send(embed).then(async msg => {
+                        result.messageId = msg.id
+                        await result.save().catch((err) => {console.log(err)});
+                    })
                 }
             }
         }, 20000)
