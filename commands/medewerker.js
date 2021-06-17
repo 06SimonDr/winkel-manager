@@ -10,9 +10,16 @@ module.exports = {
     permissions: ["MANAGE_ROLES"],
 	async execute(client, message, args, prefix) {
 
+        try {
 		var tagged = message.mentions.members.first().id
-        if (!tagged) var tagged = message.mentions.channels.first().id
-        if (!tagged) return message.reply('Tag een user of een channel!')
+        } catch (err) {
+            try {
+                var tagged = message.mentions.channels.first().id
+            }
+            catch (err) {
+                return message.reply('Tag een user of een channel!')
+            }
+        }
 
         var winkelName = args.splice(2, args.length).join(" ")
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
