@@ -14,7 +14,7 @@ module.exports = {
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
         if (!result.medewerkers.includes(message.author.id)) {
-            result.roles.forEach(role => {
+            result.roles.forEach(async role => {
                 if(message.author.roles.cache.get(role)) {
                     await schema.findOneAndUpdate(
                         {
