@@ -58,8 +58,16 @@ client.on("ready", async () => {
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
 
-  var activityNum = 0
-  customStatus(activityNum)
+  setInterval(async () => {
+    var aantalWinkels = await winkelSchema.find().length
+    const activities = [
+      { name: `${aantalWinkels} winkels`, type: "LOOKING" },
+      { name: "help", type: "LISTENING" },
+      { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
+    ]
+    const randomIndex = Math.floor(Math.random() * (activities.length - 1) + 1);
+    client.user.setActivity(activities[randomIndex])
+  }, 5000);
 });
 
 // We listen for message events.
@@ -122,19 +130,3 @@ client.on("warn", console.warn);
 
 // We login into the bot.
 client.login(config.token);
-
-async function customStatus(activityNum) {
-  setInterval(async () => {
-    var aantalWinkels = await winkelSchema.find().length
-    const activities = [
-      { name: `${aantalWinkels} winkels`, type: "LOOKING" },
-      { name: "help", type: "LISTENING" },
-      { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
-    ]
-    if (activityNum === 3) var activityNum = 0
-
-    console.log(activities[activityNum])
-    client.user.setActivity(activities[activityNum]);
-    activityNum++;
-  }, 5000);
-}
