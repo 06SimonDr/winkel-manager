@@ -6,6 +6,7 @@ const config = require("./config");
 const GuildSettings = require("./models/settings");
 const Dashboard = require("./dashboard/dashboard");
 const fs = require('fs');
+const winkelSchema = require('./models/winkels')
 
 const client = new Discord.Client({
   ws: {
@@ -18,6 +19,7 @@ const client = new Discord.Client({
 });
 
 const botOwner = "552132590044315668"
+var activityNum = 0
 client.commands = new Discord.Collection();
 
 mongoose.connect(config.mongodbUrl, {
@@ -56,6 +58,18 @@ for (const file of eventFiles) {
 client.on("ready", async () => {
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
+
+  setInterval(() => {
+    const activities = [
+      { name: await winkelSchema.find().length, type: "LOOKING" },
+      { name: "help", type: "LISTENING" },
+      { name: "dashboard", type: "STREAMING", url: "https://winkelmanager.herokuapp.com" }
+    ]
+    if (activityNum === 3) var activityNum = 0
+
+    client.user.setActivity(activities[activityNum]);
+    activityNum++;
+  }, 5000);
 });
 
 // We listen for message events.
