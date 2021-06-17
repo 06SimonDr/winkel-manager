@@ -68,6 +68,7 @@ client.on("ready", async () => {
     ]
     if (activityNum === 3) var activityNum = 0
 
+    console.log(activities[activityNum])
     client.user.setActivity(activities[activityNum]);
     activityNum++;
   }, 5000);
