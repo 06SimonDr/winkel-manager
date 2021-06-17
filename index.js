@@ -63,7 +63,6 @@ client.on("ready", async () => {
   rpc.setActivity({
     details: `test`,
     state: 'in slither party',
-    startTimestamp,
     largeImageKey: 'snek_large',
     largeImageText: 'tea is delicious',
     smallImageKey: 'snek_small',
