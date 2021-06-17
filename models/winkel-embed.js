@@ -6,11 +6,11 @@ const winkelEmbedSchema = new Schema({
   serverId: { type: String },
   channelId: { type: String },
   messageId: { type: String },
-  image: { type: String, default: null },
-  title: { type: String, default: null },
-  footer: { type: String, default: null },
-  description: { type: String, default: null },
-  color: { type: String, default: null },
+  image: { type: String },
+  title: { type: String },
+  footer: { type: String },
+  description: { type: String },
+  color: { type: String },
 });
 
 // We export it as a mongoose model.
