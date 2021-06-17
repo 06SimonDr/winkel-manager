@@ -25,7 +25,7 @@ module.exports = {
         const result = await schema.findOne({ serverId: message.guild.id, name: winkelName })
         if (!result) return message.reply("Winkel niet gevonden!")
 
-        if(message.guild.members.get(tagged)) {
+        if(message.guild.members.cache.get(tagged)) {
         if (args[0] === "add") {
             await schema.findOneAndUpdate(
                 {
