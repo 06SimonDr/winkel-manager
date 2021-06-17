@@ -1,7 +1,7 @@
 <%- include("partials/header", { bot, user, path, title: `Settings | ${guild.name}` }) %>
 
-<% const embedSettings = settings.embedSettings[0]
-console.log(settings) %>
+<% var embedSettings = settings.embedSettings[0]
+if(embedSettings === null) var embedSettings = null %>
 <div class="container-sm center" style="margin-top: 30px;">
   <div class="d-grid gap-2 col-4 mx-auto">
     <% if (alert) { %>
