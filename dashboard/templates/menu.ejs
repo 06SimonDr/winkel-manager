@@ -9,8 +9,19 @@
     <% } %>
     <h1><%= guild.name %></h1>
     <hr>
+    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Server instellingen:</p>
+    <p style="font-style: italic;" class="disabled">Pas hier de server instellingen aan zoals de prefix.</p>
     <a href="/dashboard/<%- guild.id %>/algemeen" class="btn btn-primary text-white">Server instellingen</a>
+    <hr>
+    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Winkel instellingen:</p>
+    <p style="font-style: italic;" class="disabled">Pas de winkel instellingen aan en voeg extra winkels toe.</p>
     <a href="/dashboard/<%- guild.id %>/winkels" class="btn btn-success text-white">Winkel instellingen</a>
+    <hr>
+    <p class="h5" style="margin-bottom: 0.5rem; margin-top: 10px;">Statistieken:</p>
+    <p style="font-style: italic;" class="disabled">Bekijk hier de winkel statistieken.</p>
+    <a href="/dashboard/<%- guild.id %>/statistieken" class="btn btn-warning text-white">Statistieken</a>
+    <hr>
+    <br>
   </div>
 </div>
 

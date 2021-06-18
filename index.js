@@ -10,11 +10,8 @@ const winkelSchema = require('./models/winkels')
 
 const client = new Discord.Client({
   ws: {
-    intents: [
-      "GUILDS",
-      "GUILD_MEMBERS",
-      "GUILD_MESSAGES"
-    ]
+    intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES"],
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER']
   }
 });
 
@@ -73,17 +70,18 @@ client.on("ready", async () => {
 // We listen for message events.
 client.on("message", async (message) => {
   if (message.author.bot) return;
-  var storedSettings = await GuildSettings.findOne({ gid: message.guild.id });
+  var storedSettings = await GuildSettings.findOne({ serverId: message.guild.id });
   if (!storedSettings) {
     const newSettings = new GuildSettings({
-      gid: message.guild.id
+      serverId: message.guild.id
     });
     await newSettings.save().catch(()=>{});
-    storedSettings = await GuildSettings.findOne({ gid: message.guild.id });
+    storedSettings = await GuildSettings.findOne({ serverId: message.guild.id });
   }
   if (!message.content.startsWith(storedSettings.prefix)) return;
   const prefix = storedSettings.prefix;
-  const messageArray = message.content.split(" ");
+  const lower = message.content.toLowerCase()
+  const messageArray = lower.split(" ")
   const command = messageArray[0];
   var commands = client.commands.get(command.slice(prefix.length)) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command.slice(prefix.length)));
   var args = messageArray.slice(1);

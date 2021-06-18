@@ -12,6 +12,7 @@ const Discord = require("discord.js");
 const GuildSettings = require("../models/settings");
 const winkelSchema  = require('../models/winkels')
 const embedSchema = require('../models/winkel-embed')
+const timeSchema = require("../models/time")
 
 // We instantiate express app and the session store.
 const app = express();
@@ -201,14 +202,14 @@ module.exports = async (client) => {
     if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
 
     // We retrive the settings stored for this guild.
-    var storedSettings = await GuildSettings.findOne({ gid: guild.id });
+    var storedSettings = await GuildSettings.findOne({ serverId: guild.id });
     if (!storedSettings) {
       // If there are no settings stored for this guild, we create them and try to retrive them again.
       const newSettings = new GuildSettings({
-        gid: guild.id
+        serverId: guild.id
       });
       await newSettings.save().catch(()=>{});
-      storedSettings = await GuildSettings.findOne({ gid: guild.id });
+      storedSettings = await GuildSettings.findOne({ serverId: guild.id });
     }
   
     renderTemplate(res, req, "settings.ejs", { guild, settings: storedSettings, alert: null });
@@ -223,14 +224,14 @@ module.exports = async (client) => {
         if (!member) return res.redirect("/dashboard");
         if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
         // We retrive the settings stored for this guild.
-        var storedSettings = await GuildSettings.findOne({ gid: guild.id });
+        var storedSettings = await GuildSettings.findOne({ serverId: guild.id });
         if (!storedSettings) {
           // If there are no settings stored for this guild, we create them and try to retrive them again.
           const newSettings = new GuildSettings({
-            gid: guild.id
+            serverId: guild.id
           });
           await newSettings.save().catch(()=>{});
-          storedSettings = await GuildSettings.findOne({ gid: guild.id });
+          storedSettings = await GuildSettings.findOne({ serverId: guild.id });
         }
       
         // We set the prefix of the server settings to the one that was sent in request from the form.
@@ -297,6 +298,23 @@ module.exports = async (client) => {
         var winkelsSettings = await winkelSchema.find({ serverId: guild.id });
         renderTemplate(res, req, "winkels.ejs", { guild, settings: { winkelsSettings,  embedSettings}, alert: "Jouw instellingen zijn opgeslagen!" });
     });
+
+    app.get("/dashboard/:guildID/statistieken", checkAuth, async (req, res) => {
+      // We validate the request, check if guild exists, member is in guild and if member has minimum permissions, if not, we redirect it back.
+      var guild = client.guilds.cache.get(req.params.guildID);
+      if (!guild) return res.redirect("/dashboard");
+      const member = guild.members.cache.get(req.user.id);
+      if(!member){
+        try{ await guild.members.fetch();
+          member = guild.members.cache.get(req.user.id);
+        } catch{ console.error("Couldn't fetch the members of " + guild.id); }}
+      if (!member) return res.redirect("/dashboard");
+      if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
+  
+      const grafiekSettings = await timeSchema.find()
+      renderTemplate(res, req, "charts.ejs", { guild, settings: grafiekSettings, alert: null });
+    });
+
     const testport = process.env.PORT || 80
   app.listen(testport, null, null, () => console.log(`Dashboard is up and running on port ${testport}.`));
 };
