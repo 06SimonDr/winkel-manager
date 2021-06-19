@@ -5,7 +5,7 @@ const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
 const Strategy = require("passport-discord").Strategy;
-const config = require("../config");
+const config = require("../config.txt");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const Discord = require("discord.js");
@@ -312,6 +312,49 @@ module.exports = async (client) => {
       if (!member.permissions.has("MANAGE_GUILD")) return res.redirect("/dashboard");
   
       const grafiekSettings = await timeSchema.find()
+
+      const dagen = [-7, -6, -5, -4, -3, -2, -1, 0]
+    function getDay(day){
+    var today = new Date();
+    var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;          
+    today.setTime(targetday_milliseconds);
+    var tYear = today.getFullYear();  
+    var tMonth = today.getMonth();  
+    var tDate = today.getDate();  
+    tMonth = doHandleMonth(tMonth + 1);  
+    tDate = doHandleMonth(tDate);  
+    return tDate+"-"+tMonth+"-"+tYear;  
+}
+function doHandleMonth(month){
+    var m = month;  
+    if(month.toString().length == 1){  
+       m = "0" + month;  
+    }  
+    return m;  
+}
+var testList = []
+dagen.forEach(dag => {
+  var test = getDay(dag)
+  let day0 = 0; var day1 = 0; var day2 = 0; var day3 = 0; var day4 = 0; var day5 = 0; var day6 = 0; var day7 = 0;
+  settings.forEach(setting => {
+    if (setting.day === test) {
+      if (dag === -7) var day0 = day0 + parseInt(setting.duration)
+      if (dag === -6) var day1 = day1 + parseInt(setting.duration)
+      if (dag === -5) var day2 = day2 + parseInt(setting.duration)
+      if (dag === -4) var day3 = day3 + parseInt(setting.duration)
+      if (dag === -3) var day4 = day4 + parseInt(setting.duration)
+      if (dag === -2) var day5 = day5 + parseInt(setting.duration)
+      if (dag === -1) var day6 = day6 + parseInt(setting.duration)
+      if (dag === 0) var day7 = day7 + parseInt(setting.duration)
+    }
+  })
+  testList.push(test)
+})
+
+function test() {
+  
+}
+
       renderTemplate(res, req, "charts.ejs", { guild, settings: grafiekSettings, alert: null });
     });
 

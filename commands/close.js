@@ -29,7 +29,14 @@ module.exports = {
 
             var startDate = result2.date;
             var endDate = message.createdTimestamp;
-            var duration = endDate-startDate
+            var duration = endDate-startDate;
+            var today = new Date();
+            var tYear = today.getFullYear();  
+            var tMonth = today.getMonth();  
+            var tDate = today.getDate();  
+            tMonth = doHandleMonth(tMonth + 1);  
+            tDate = doHandleMonth(tDate);  
+            var datum = tDate+"-"+tMonth+"-"+tYear; 
 
             await new timeSchema({
                 serverId: message.guild.id,
@@ -37,7 +44,8 @@ module.exports = {
                 name: winkelName,
                 startDate: startDate,
                 endDate: endDate,
-                duration: duration
+                duration: duration,
+                day: datum
             }).save().catch(()=>{});
 
             await medwSchema.findOneAndUpdate(
@@ -62,3 +70,11 @@ module.exports = {
         }
 	},
 };
+
+function doHandleMonth(month){  
+    var m = month;  
+    if(month.toString().length == 1){  
+       m = "0" + month;  
+    }  
+    return m;  
+}

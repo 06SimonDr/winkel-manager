@@ -2,7 +2,7 @@ console.log('===\nBot starting...\n===')
 
 const Discord = require("discord.js");
 const mongoose = require("mongoose");
-const config = require("./config");
+const config = require("./config.txt");
 const GuildSettings = require("./models/settings");
 const Dashboard = require("./dashboard/dashboard");
 const fs = require('fs');
@@ -80,9 +80,8 @@ client.on("message", async (message) => {
   }
   if (!message.content.startsWith(storedSettings.prefix)) return;
   const prefix = storedSettings.prefix;
-  const lower = message.content.toLowerCase()
-  const messageArray = lower.split(" ")
-  const command = messageArray[0];
+  const messageArray = message.content.split(" ")
+  const command = messageArray[0].toLowerCase()
   var commands = client.commands.get(command.slice(prefix.length)) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command.slice(prefix.length)));
   var args = messageArray.slice(1);
   if (!commands) return

@@ -5,40 +5,96 @@
     <h1>Grafieken <%= guild.name %></h1>
     <hr>
     <div>
-        <canvas id="myChart"></canvas>
+      <canvas id="myChart"></canvas>
     </div>
-
     <script>
-      let start = new Date(), end = new Date();
+      //const settings = "<%= settings %>"
+    /*const dagen = [-7, -6, -5, -4, -3, -2, -1, 0]
+    function getDay(day){
+    var today = new Date();
+    var targetday_milliseconds=today.getTime() + 1000*60*60*24*day;          
+    today.setTime(targetday_milliseconds);
+    var tYear = today.getFullYear();  
+    var tMonth = today.getMonth();  
+    var tDate = today.getDate();  
+    tMonth = doHandleMonth(tMonth + 1);  
+    tDate = doHandleMonth(tDate);  
+    return tDate+"-"+tMonth+"-"+tYear;  
+}
+function doHandleMonth(month){
+    var m = month;  
+    if(month.toString().length == 1){  
+       m = "0" + month;  
+    }  
+    return m;  
+}
+var day0 = 0; var day1 = 0; var day2 = 0; var day3 = 0; var day4 = 0; var day5 = 0; var day6 = 0; var day7 = 0;
+var testList = []
+dagen.forEach(dag => {
+  var test = getDay(dag)*/
+  /*settings.forEach(setting => {
+    if (setting.day === test) {
+      if (day === -7) var day0 = day0 + parseInt(setting.duration)
+      if (day === -6) var day1 = day1 + parseInt(setting.duration)
+      if (day === -5) var day2 = day2 + parseInt(setting.duration)
+      if (day === -4) var day3 = day3 + parseInt(setting.duration)
+      if (day === -3) var day4 = day4 + parseInt(setting.duration)
+      if (day === -2) var day5 = day5 + parseInt(setting.duration)
+      if (day === -1) var day6 = day6 + parseInt(setting.duration)
+      if (day === 0) var day7 = day7 + parseInt(setting.duration)
+    }
+  })*/
+  //testList.push(test)
+// })
 
-start.setDate(start.getDate() - 7);
-start.setHours(0, 0, 0, 0);
-
-const data = {
-  labels: labels,
+/*const data = {
+  labels: testList,
   datasets: [{
     label: 'My First Dataset',
-    data: [65, 59, 80, 81, 56, 55, 40],
+    data: [65, 59, 80, 81, 56, 55, 40],   // [day0, day1, day2, day3, day4, day5, day6, day7],
     fill: false,
     borderColor: 'rgb(75, 192, 192)',
     tension: 0.1
   }]
 };
 
-      new Chart(document.getElementById("myChart"), {
-          type: 'line',
-          data: data,
-          options: {
-        scales: {
-            x: {
-                type: 'time',
-                time: {
-                    unit: 'month'
-                }
-            }
-        }
-    }
-        });
+const config = {
+  type: 'line',
+  data: data,
+}*/
+
+const config = {
+  type: 'line',
+          data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{ 
+                data: [86,114,106,106,107,111,133],
+                label: "Total",
+                borderColor: "rgb(62,149,205)",
+                backgroundColor: "rgb(62,149,205,0.1)",
+              }, { 
+                data: [70,90,44,60,83,90,100],
+                label: "Accepted",
+                borderColor: "rgb(60,186,159)",
+                backgroundColor: "rgb(60,186,159,0.1)",
+              }, { 
+                data: [10,21,60,44,17,21,17],
+                label: "Pending",
+                borderColor: "rgb(255,165,0)",
+                backgroundColor:"rgb(255,165,0,0.1)",
+              }, { 
+                data: [6,3,2,2,7,0,16],
+                label: "Rejected",
+                borderColor: "rgb(196,88,80)",
+                backgroundColor:"rgb(196,88,80,0.1)",
+              }
+            ]
+          },
+}
+var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
     </script>
   </div>
 </div>

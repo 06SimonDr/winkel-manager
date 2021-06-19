@@ -26,6 +26,7 @@
     "body-parser": "^1.19.0",
     "bootstrap": "^5.0.1",
     "chart.js": "^3.3.2",
+    "chartjs-node-canvas": "^3.2.0",
     "discord.js": "^12.1.1",
     "ejs": "^3.0.2",
     "express": "^4.17.1",
