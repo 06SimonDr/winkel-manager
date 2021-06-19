@@ -2,7 +2,7 @@ console.log('===\nBot starting...\n===')
 
 const Discord = require("discord.js");
 const mongoose = require("mongoose");
-const config = require("./config.txt");
+const config = require("./config.js");
 const GuildSettings = require("./models/settings");
 const Dashboard = require("./dashboard/dashboard");
 const fs = require('fs');
