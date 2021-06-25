@@ -16,7 +16,10 @@ module.exports = {
     });*/
 
     const commands = await client.application?.commands
-	console.log(commands)
+	commands.cache.forEach(async command => {
+		client.application?.commands.delete(command.id)
+		console.log(`Command ${command.name} is verwijderd!`)
+	})
 
     /*commands.forEach(async (command) => {
       await interaction

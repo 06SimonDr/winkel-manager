@@ -3,7 +3,7 @@ module.exports = {
     "mongodbUrl": "mongodb+srv://discord-bot:Pidag1403@cluster0.1qynp.mongodb.net/WinkelManager", // Mongodb connection url.
     "id": "820711214258454589", // https://discordapp.com/developers/applications/ID/information
     "clientSecret": "9mIZyJYR-2Si-1ZWUjvMOYBVA6DDM3lY", // https://discordapp.com/developers/applications/ID/information
-    "domain": "http://winkelmanager.herokuapp.com",
+    "domain": "https://winkelmanager.herokuapp.com",
     "port": 80,
     "usingCustomDomain": true
   };
