@@ -25,7 +25,7 @@ module.exports = {
                 if(result.footer) embed.setFooter(result.footer)
                 if(result.color) embed.setColor(result.color)
                 embed.setTimestamp()
-                var message = await channel.messages.fetch(result.messageId).catch((err) => { channel.send(embed) })
+                var message = await channel.messages.fetch(result.messageId).catch((err) => { channel.send({ embeds: [embed] }) })
 
                 for (const winkel of winkels) {
                     if (winkel.active > 0) {
@@ -36,9 +36,9 @@ module.exports = {
                     }
                 }
                 try {
-                    await message.edit(embed)
+                    await message.edit({ embeds: [embed] })
                 } catch(err) {
-                    channel.send(embed).then(async msg => {
+                    channel.send({ embeds: [embed] }).then(async msg => {
                         result.messageId = msg.id
                         await result.save().catch((err) => {console.log(err)});
                     })

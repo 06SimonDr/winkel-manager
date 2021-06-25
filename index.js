@@ -9,14 +9,13 @@ const fs = require('fs');
 const winkelSchema = require('./models/winkels')
 
 const client = new Discord.Client({
-  ws: {
     intents: ["GUILDS", "GUILD_MEMBERS", "GUILD_MESSAGES"],
     partials: ['MESSAGE', 'CHANNEL', 'REACTION', 'USER', 'GUILD_MEMBER']
-  }
 });
 
 const botOwner = "552132590044315668"
 client.commands = new Discord.Collection();
+client.slashCommands = new Discord.Collection();
 
 mongoose.connect(config.mongodbUrl, {
   keepAlive: true,
@@ -52,6 +51,25 @@ for (const file of eventFiles) {
 
 // We listen for client's ready event.
 client.on("ready", async () => {
+
+  fs.readdir("./slash/", (err, files) => {
+
+    if (err) console.log(err);
+  
+    files.forEach(async (f, i) => {
+  
+        var fileGet = require(`./slash/${f}`);
+        const data = {
+          name: fileGet.name,
+          description: fileGet.description,
+          options: fileGet.args,
+        }
+        await client.application?.commands.create(data);
+        client.slashCommands.set(fileGet.name, fileGet);
+    });
+    console.log(`${files.length} slash commands geladen!`)
+  });
+
   console.log(`===\nBot ingelogd als ${client.user.username}\n===`)
   Dashboard(client);
 
@@ -119,6 +137,19 @@ if (command.maxArgs) {
 		message.reply('Er is een error opgetreden tijdens het uitvoeren van dit command.');
 	}
 }
+});
+
+client.on('interaction', async interaction => {
+	if (!interaction.isCommand()) return;
+
+  var command = client.slashCommands.get(interaction.commandName);
+  if (!command) return interaction.reply('Er is een error opgetreden tijdens het uitvoeren van dit command.')
+  try {
+		command.execute(client, interaction);
+	} catch (error) {
+		console.error(error);
+		interaction.reply('Er is een error opgetreden tijdens het uitvoeren van dit command.');
+	}
 });
 
 // Listening for error & warn events.
