@@ -1,4 +1,4 @@
 # Winkel Manager bot
 
 
-Officiele mintopia winkel manager bot met dashboard.
+Discord bot voor minetopia winkel
